@@ -1,4 +1,4 @@
-<template>Feed TEST TEST</template>
+<template>Feed TEST TEST TESTTEST TESTTEST TEST TEST TEST</template>
 
 <script>
 export default {
