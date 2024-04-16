@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 /dist
-public/firebaseConfig
+public/firebaseConfig.js
 
 # local env files
 .env.local
@@ -21,3 +21,5 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+env
