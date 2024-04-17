@@ -9,7 +9,7 @@
 			<div class="row border rounded-5 p-3 bg-white shadow box-area">
 				<div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
 					<div class="featured-image mb-3">
-						<img src="../assets/images/register.png" class="img-fluid rounded-4" />
+						<img :src="imgSrc" class="img-fluid rounded-4" id="register-image" />
 					</div>
 				</div>
 
@@ -47,13 +47,36 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted, watchEffect } from "vue";
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useRouter } from "vue-router";
+import largeImage from "../assets/images/register.png";
+import smallImage from "../assets/images/logov2text.svg";
 
 const email = ref("");
 const password = ref("");
 const router = useRouter();
+
+let imgSrc = ref(largeImage);
+let width = ref(window.innerWidth);
+
+const updateDimensions = () => {
+	width.value = window.innerWidth;
+	imgSrc.value = width.value <= 600 ? smallImage : largeImage;
+};
+
+onMounted(() => {
+	window.addEventListener("resize", updateDimensions);
+	updateDimensions();
+});
+
+onUnmounted(() => {
+	window.removeEventListener("resize", updateDimensions);
+});
+
+watchEffect(() => {
+	imgSrc.value = width.value <= 600 ? smallImage : largeImage;
+});
 
 const register = () => {
 	createUserWithEmailAndPassword(getAuth(), email.value, password.value)
