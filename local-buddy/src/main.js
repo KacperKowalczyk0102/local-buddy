@@ -1,13 +1,19 @@
-import Vue from 'vue'
-import App from './App.vue'
-import './registerServiceWorker'
-import router from './router'
-import store from './store'
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
+import { firebaseConfig } from "../public/firebaseConfig";
+import { initializeApp } from "firebase/app";
+import Vue from "vue";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap";
+import "./assets/css/main.scss";
+//use bootstrap
 
-Vue.config.productionTip = false
+// Initialize Firebase
+initializeApp(firebaseConfig);
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+const app = createApp(App);
+
+app.use(router);
+
+app.mount("#app");
