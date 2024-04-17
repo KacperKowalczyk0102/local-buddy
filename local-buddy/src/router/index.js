@@ -10,8 +10,9 @@ const router = createRouter({
         { path: '/signin', name: 'signin', component: () => import('../views/SignIn.vue') },
         { path: '/feed', name: 'feed', component: () => import('../views/Feed.vue'),
             meta: {
-                requiresAuth: true
-        } },
+                requiresAuth: true} },
+        {path: '/post', name: 'post', component: () => import('../views/Post.vue'), },
+
 
     ]
 });

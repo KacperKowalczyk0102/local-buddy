@@ -30,6 +30,7 @@ const handleSignOut = () => {
 			<router-link to="/feed">Feed</router-link>
 			<router-link to="/register">Register</router-link>
 			<router-link to="/signin">Sign In</router-link>
+      <router-link to="/post">Post</router-link>
 			<button @click="handleSignOut" v-if="isLoggedIn">Sign Out</button>
 		</nav>
 		<router-view />
