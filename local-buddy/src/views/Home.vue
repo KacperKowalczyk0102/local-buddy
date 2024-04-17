@@ -1,7 +1,17 @@
 <template>
-	Home
-	<button v-if="isUserLoggedIn" @click="logout" class="btn btn-primary">Wyloguj</button>
-	<div class="container">aaa</div>
+	<section id="home" class="bg-aniamtion min-vh-100">
+		<div class="px-4 py-5 mx-5 text-center">
+			<img class="d-block mx-auto mb-4" src="../assets/images/logov2ALL.svg" alt="LocalBuddy" height="400rem" />
+			<h1 class="display-5 fw-bold text-body-emphasis">Zainspiruj się</h1>
+			<div class="col-lg-6 mx-auto">
+				<p class="lead mb-4">Odkrywaj i polecaj ciekawe miejsca w twojej okolicy. Znajdź inspirację na wycieczki, weekendy i wakacje.</p>
+				<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+					<button type="button" class="btn btn-dark btn-lg px-4 gap-3">Zarejestruj się</button>
+					<button type="button" class="btn btn-dark btn-lg px-4">Zaloguj się</button>
+				</div>
+			</div>
+		</div>
+	</section>
 </template>
 
 <script>
@@ -15,16 +25,6 @@ export default {
 	name: "Home",
 	setup() {
 		const router = useRouter();
-		const isUserLoggedIn = ref(false);
-
-		const logout = async () => {
-			try {
-				await signOut(auth);
-				console.log("Wylogowano pomyślnie");
-			} catch (error) {
-				console.error("Błąd podczas wylogowywania", error);
-			}
-		};
 
 		onMounted(() => {
 			console.log("Home mounted");
@@ -32,17 +32,16 @@ export default {
 				if (user) {
 					// Użytkownik jest zalogowany.
 					console.log("Użytkownik jest zalogowany");
-					isUserLoggedIn.value = true;
-					/* router.push("/feed"); */
+
+					router.push("/feed");
 				} else {
 					// Użytkownik jest wylogowany.
 					console.log("Użytkownik jest wylogowany");
-					isUserLoggedIn.value = false;
 				}
 			});
 		});
 
-		return { logout, isUserLoggedIn };
+		return {};
 	},
 };
 </script>
