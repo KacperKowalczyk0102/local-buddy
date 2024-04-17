@@ -62,7 +62,7 @@ let width = ref(window.innerWidth);
 
 const updateDimensions = () => {
 	width.value = window.innerWidth;
-	imgSrc.value = width.value <= 600 ? smallImage : largeImage;
+	imgSrc.value = width.value <= 750 ? smallImage : largeImage;
 };
 
 onMounted(() => {
@@ -75,7 +75,7 @@ onUnmounted(() => {
 });
 
 watchEffect(() => {
-	imgSrc.value = width.value <= 600 ? smallImage : largeImage;
+	imgSrc.value = width.value <= 750 ? smallImage : largeImage;
 });
 
 const register = () => {

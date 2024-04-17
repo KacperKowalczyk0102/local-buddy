@@ -31,28 +31,24 @@ body {
 	}
 }
 
-.btn-main {
-	background-color: $quinary;
-}
-.btn-main2 {
-	background-color: $quaternary;
-}
-
 //small devices
 
-@media (max-width: 600px) {
+@media (max-width: 750px) {
+	.box-area {
+		margin: 0 10px;
+	}
 	.left-box {
-		height: 100px;
-		overflow: hidden;
+		height: 150px;
+		/* overflow: hidden; */
+	}
+	.header-text,
+	p {
+		margin-bottom: 0 !important;
 	}
 	#register-image {
 		height: 150px;
 	}
 	#home-image {
 		height: 18rem;
-		overflow: hidden;
-		display: flex;
-		justify-content: center;
-		align-items: center;
 	}
 }

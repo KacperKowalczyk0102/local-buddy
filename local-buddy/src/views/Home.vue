@@ -6,8 +6,8 @@
 			<div class="col-lg-6 mx-auto">
 				<p class="lead mb-4">Odkrywaj i polecaj ciekawe miejsca w twojej okolicy. Znajdź inspirację na wycieczki, weekendy i wakacje.</p>
 				<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-					<button type="button" class="btn btn-dark btn-lg px-4 gap-3">Zarejestruj się</button>
-					<button type="button" class="btn btn-dark btn-lg px-4">Zaloguj się</button>
+					<button @click="goToRegister" type="button" class="btn btn-dark btn-lg px-4 gap-3">Zarejestruj się</button>
+					<button @click="goToLogin" type="button" class="btn btn-dark btn-lg px-4">Zaloguj się</button>
 				</div>
 			</div>
 		</div>
@@ -41,7 +41,14 @@ export default {
 			});
 		});
 
-		return {};
+		const goToLogin = () => {
+			router.push("/signin");
+		};
+		const goToRegister = () => {
+			router.push("/register");
+		};
+
+		return { goToLogin, goToRegister };
 	},
 };
 </script>
