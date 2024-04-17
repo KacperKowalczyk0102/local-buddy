@@ -10,6 +10,9 @@ body {
 	font-weight: 400;
 	font-style: normal;
 }
+#home-image {
+	height: 30rem;
+}
 .bg-aniamtion {
 	background: linear-gradient(300deg, $primary, $secondary, $tertiary);
 	background-size: 180% 180%;
@@ -33,4 +36,23 @@ body {
 }
 .btn-main2 {
 	background-color: $quaternary;
+}
+
+//small devices
+
+@media (max-width: 600px) {
+	.left-box {
+		height: 100px;
+		overflow: hidden;
+	}
+	#register-image {
+		height: 150px;
+	}
+	#home-image {
+		height: 18rem;
+		overflow: hidden;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 }
