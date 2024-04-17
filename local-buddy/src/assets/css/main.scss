@@ -1,4 +1,36 @@
-$bg-color: red;
-.container {
-	background-color: $bg-color;
+$primary: #ef8172;
+$secondary: #d16e88;
+$tertiary: #a46693;
+$quaternary: #475676;
+$quinary: #72608c;
+
+body {
+	font-family: "Inter", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
+}
+.bg-aniamtion {
+	background: linear-gradient(300deg, $primary, $secondary, $tertiary);
+	background-size: 180% 180%;
+	animation: gradient-animation 10s ease infinite;
+}
+
+@keyframes gradient-animation {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.btn-main {
+	background-color: $quinary;
+}
+.btn-main2 {
+	background-color: $quaternary;
 }
