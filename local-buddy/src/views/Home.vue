@@ -1,7 +1,7 @@
 <template>
 	<section id="home" class="bg-aniamtion min-vh-100">
 		<div class="px-4 py-5 mx-5 text-center">
-			<img class="d-block mx-auto mb-4" src="../assets/images/logov2ALL.svg" alt="LocalBuddy" id="home-image" />
+			<img class="d-block mx-auto mb-4 img-fluid" src="../assets/images/logov2ALL.svg" alt="LocalBuddy" id="home-image" />
 			<h1 class="display-5 fw-bold text-body-emphasis">Zainspiruj się</h1>
 			<div class="col-lg-6 mx-auto">
 				<p class="lead mb-4">Odkrywaj i polecaj ciekawe miejsca w twojej okolicy. Znajdź inspirację na wycieczki, weekendy i wakacje.</p>
