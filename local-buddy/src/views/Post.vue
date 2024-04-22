@@ -22,22 +22,29 @@
       </div>
       <div class="form-group">
         <label for="location">Lokalizacja:</label>
-        <input type="text" id="location" v-model="location" />
+
+        <input type="text" id="location" v-model="location" @input="searchSuggestions" />
       </div>
+      <ul class="autosuggest-list" v-if="suggestions.length > 0">
+        <li v-for="suggest in suggestions" :key="suggest.place_id" @click="selectSuggestion(suggest)">{{ suggest.description }}</li>
+      </ul>
       <button type="submit">Dodaj post</button>
     </form>
   </div>
 </template>
 
 <script>
+
 import { firebaseConfig } from "@/firebaseConfig"
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
+
 
 export default {
   data() {
     return {
       image: null,
+
       description: "",
       rating: 1,
       location: ""

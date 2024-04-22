@@ -39,6 +39,27 @@ footer a.active {
 	overflow-y: auto !important;
 	width: 250px; /* Adjust as needed */
 }
+.autosuggest-list {
+	position: absolute;
+	z-index: 10;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+	max-height: 200px;
+	overflow-y: auto;
+  }
+  
+  .autosuggest-list li {
+	padding: 10px;
+	cursor: pointer;
+  }
+  
+  .autosuggest-list li:hover {
+	background-color: #f0f0f0;
+  }
 @keyframes gradient-animation {
 	0% {
 		background-position: 0% 50%;
