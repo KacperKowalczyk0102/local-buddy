@@ -60,8 +60,15 @@
 					</ul>
 				</div>
 			</div>
+
 			<!-- MAIN CONTENT -->
 			<div class="col-md-6">
+				<!-- test -->
+				<div class="col-md-6">
+					<ul>
+						<li v-for="post in posts" :key="post.id">{{ post.description }} - {{ post.location }} {{ post.createdAt }} - {{ post.rating }}</li>
+					</ul>
+				</div>
 				Feed TEST TEST TESTTEST TESTTEST TEST TEST TEST Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi gravida nisi at est maximus,
 				sed cursus nulla lobortis. Donec a vulputate dolor. Vivamus tortor massa, semper quis congue varius, efficitur sed ex. Mauris aliquet lacinia
 				arcu, et tincidunt nisi malesuada vitae. Etiam dapibus erat sapien. Suspendisse vel vehicula tortor, faucibus laoreet quam. Quisque cursus,
@@ -148,18 +155,35 @@
 
 <script>
 import { useRouter } from "vue-router";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, getCurrentInstance } from "vue";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 export default {
 	setup() {
 		const router = useRouter();
 		const isMobile = ref(window.innerWidth <= 768);
+		const { proxy } = getCurrentInstance();
+		const db = proxy.$db;
+		// Lista postów
+		const posts = ref([]);
 
 		window.addEventListener("resize", () => {
 			isMobile.value = window.innerWidth <= 768;
 		});
 
-		onMounted(() => {
+		/* onMounted(() => {
+			const db = this.$db;
 			isMobile.value = window.innerWidth <= 768;
+		}); */
+		onMounted(async () => {
+			try {
+				isMobile.value = window.innerWidth <= 768;
+				const querySnapshot = await getDocs(collection(db, "posts"));
+				querySnapshot.forEach((doc) => {
+					posts.value.push({ id: doc.id, ...doc.data() });
+				});
+			} catch (error) {
+				console.error("Błąd podczas pobierania danych:", error);
+			}
 		});
 
 		const goToFeed = () => {
@@ -169,7 +193,7 @@ export default {
 			router.push("/post");
 		};
 
-		return { goToFeed, goToPost, isMobile };
+		return { goToFeed, goToPost, isMobile, posts };
 	},
 };
 </script>
