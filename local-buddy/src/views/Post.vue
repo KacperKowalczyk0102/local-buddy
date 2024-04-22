@@ -1,4 +1,5 @@
 <template>
+
 	<div class="post-form-container">
 		<h2>Dodaj nowy post</h2>
 		<form @submit.prevent="submitPost" class="post-form">
@@ -157,6 +158,7 @@ export default {
 			this.location = "";
 		}, */
 	},
+
 };
 </script>
 
