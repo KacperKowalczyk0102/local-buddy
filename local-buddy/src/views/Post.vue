@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import { firebaseConfig } from '@/../public/firebaseConfig.js';
+
 export default {
   data() {
     return {
@@ -45,7 +47,7 @@ export default {
   },
   mounted() {
     const script = document.createElement('script');
-    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBfubC-Ib_fszXz5_j89cJd3901Gg5NcCA&libraries=places';
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${firebaseConfig.googleKey}&libraries=places`;
     script.async = true;
     script.defer = true;
     document.head.appendChild(script);

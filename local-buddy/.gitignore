@@ -2,7 +2,6 @@
 node_modules
 /dist
 public/firebaseConfig.js
-src/views/Post.vue
 
 # local env files
 .env.local
