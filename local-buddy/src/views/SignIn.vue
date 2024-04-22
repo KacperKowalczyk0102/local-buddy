@@ -107,8 +107,8 @@ const logInWithGoogle = () => {
 
 const updateDimensions = () => {
 	width.value = window.innerWidth;
-	imgSrc.value = width.value <= 750 ? smallImage : largeImage;
-	isMobile = width.value <= 750;
+	imgSrc.value = width.value <= 767 ? smallImage : largeImage;
+	isMobile = width.value <= 767;
 };
 
 onMounted(() => {
