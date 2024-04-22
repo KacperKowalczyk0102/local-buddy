@@ -18,7 +18,27 @@ body {
 	background-size: 180% 180%;
 	animation: gradient-animation 10s ease infinite;
 }
+.nav-tabs {
+	border: none !important;
+}
 
+footer a.nav-link {
+	color: white !important;
+}
+footer a.active {
+	background-color: transparent !important;
+	border: none !important;
+	color: black !important;
+	border-bottom: 2px solid black !important;
+}
+.sidebar {
+	position: fixed !important;
+	left: 0 !important;
+	top: 0 !important;
+	height: 100vh !important;
+	overflow-y: auto !important;
+	width: 250px; /* Adjust as needed */
+}
 @keyframes gradient-animation {
 	0% {
 		background-position: 0% 50%;
