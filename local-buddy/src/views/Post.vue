@@ -22,6 +22,7 @@
       </div>
       <div class="form-group">
         <label for="location">Lokalizacja:</label>
+
         <input type="text" id="location" v-model="location" @input="searchSuggestions" />
       </div>
       <ul class="autosuggest-list" v-if="suggestions.length > 0">
@@ -33,82 +34,53 @@
 </template>
 
 <script>
-import { firebaseConfig } from '@/../public/firebaseConfig.js';
+
+import { firebaseConfig } from "@/firebaseConfig"
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+
 
 export default {
   data() {
     return {
       image: null,
-      description: '',
+
+      description: "",
       rating: 1,
-      location: '',
-      suggestions: []
+      location: ""
     };
   },
-  mounted() {
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${firebaseConfig.googleKey}&libraries=places`;
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-
-  script.onload = () => {
-    console.log('Google Maps API załadowany');
-    this.initGoogleMaps();
-  };
-  },
   methods: {
-    searchSuggestions() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        const latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        const service = new google.maps.places.AutocompleteService();
-        const request = {
-          input: this.location,
-          location: latLng,
-          radius: 10000, // Maksymalny zasięg w metrach od obecnej pozycji
-        };
-        service.getPlacePredictions(request, (predictions, status) => {
-          if (status === google.maps.places.PlacesServiceStatus.OK && predictions) {
-            this.suggestions = predictions;
-          }
-        });
-      }, error => {
-        console.error('Błąd podczas uzyskiwania lokalizacji:', error);
-      });
-    } else {
-      console.error('Twoja przeglądarka nie obsługuje Geolocation API');
-    }
-  },
-  selectSuggestion(suggestion) {
-    this.location = suggestion.description;
-    this.suggestions = [];
-  },
-    initGoogleMaps() {
-    if (typeof google !== 'undefined' && google.maps) {
-      console.log('Inicjalizacja Google Maps');
-      // Tutaj możesz wywołać funkcje Google Maps, np. geocodowanie
-    } else {
-      console.error('Google Maps API nie załadowany poprawnie');
-    }
-    },
     handleImageChange(event) {
       this.image = event.target.files[0];
     },
-    submitPost() {
-      //logika dodawania posta, można np. wysłać dane do serwera
-      console.log({
-        image: this.image,
-        description: this.description,
-        rating: this.rating,
-        location: this.location
-      });
-      
-      // reset pul w formularzu po dodaniu posta
-      this.image = null;
-      this.description = '';
-      this.rating = 1;
-      this.location = '';
+    async submitPost() {
+      try {
+        // inicializacja Firebase
+        const firebaseApp = initializeApp(firebaseConfig);
+        // daje dostęp do bazy danych
+        const firestore = getFirestore(firebaseApp);
+        // dajemy nazwę kolekcji, do której chcemy dodać posta
+        const postsCollection = collection(firestore, "posts");
+        
+        // dodanie posta do bazy danych
+        await addDoc(postsCollection, {
+          description: this.description,
+          rating: this.rating,
+          location: this.location,
+          createdAt: new Date().toISOString() // dodanie pola z obecną datą
+        });
+
+        // reset po dodaniu posta
+        this.image = null;
+        this.description = "";
+        this.rating = 1;
+        this.location = "";
+
+        console.log("Post został dodany pomyślnie!");
+      } catch (error) {
+        console.error("Błąd podczas dodawania posta:", error);
+      }
     }
   }
 };
