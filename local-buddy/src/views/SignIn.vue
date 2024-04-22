@@ -10,7 +10,7 @@
 			<div class="row border rounded-5 p-3 bg-white shadow box-area">
 				<div v-if="isMobile" class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
 					<div class="featured-image mb-3">
-						<img :src="imgSrc" class="img-fluid rounded-4" id="register-image" />
+						<img :src="imgSrc" class="img-fluid rounded-4" id="login-image" />
 					</div>
 				</div>
 
@@ -57,7 +57,7 @@
 import { ref, onMounted, onUnmounted, watchEffect } from "vue";
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useRouter } from "vue-router";
-import largeImage from "../assets/images/register.png";
+import largeImage from "../assets/images/login.png";
 import smallImage from "../assets/images/logov2text.svg";
 
 const email = ref("");
@@ -107,8 +107,8 @@ const logInWithGoogle = () => {
 
 const updateDimensions = () => {
 	width.value = window.innerWidth;
-	imgSrc.value = width.value <= 750 ? smallImage : largeImage;
-	isMobile = width.value <= 750;
+	imgSrc.value = width.value <= 767 ? smallImage : largeImage;
+	isMobile = width.value <= 767;
 };
 
 onMounted(() => {

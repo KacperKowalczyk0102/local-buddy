@@ -18,7 +18,27 @@ body {
 	background-size: 180% 180%;
 	animation: gradient-animation 10s ease infinite;
 }
+.nav-tabs {
+	border: none !important;
+}
 
+footer a.nav-link {
+	color: white !important;
+}
+footer a.active {
+	background-color: transparent !important;
+	border: none !important;
+	color: black !important;
+	border-bottom: 2px solid black !important;
+}
+.sidebar {
+	position: fixed !important;
+	left: 0 !important;
+	top: 0 !important;
+	height: 100vh !important;
+	overflow-y: auto !important;
+	width: 250px; /* Adjust as needed */
+}
 @keyframes gradient-animation {
 	0% {
 		background-position: 0% 50%;
@@ -33,7 +53,7 @@ body {
 
 //small devices
 
-@media (max-width: 750px) {
+@media (max-width: 767px) {
 	.box-area {
 		margin: 0 10px;
 	}
@@ -45,7 +65,8 @@ body {
 	p {
 		margin-bottom: 0 !important;
 	}
-	#register-image {
+	#register-image,
+	#login-image {
 		height: 150px;
 	}
 	#home-image {
