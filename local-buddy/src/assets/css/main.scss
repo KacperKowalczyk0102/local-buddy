@@ -4,12 +4,22 @@ $tertiary: #a46693;
 $quaternary: #475676;
 $quinary: #72608c;
 
+html {
+	scroll-behavior: smooth;
+}
+body,
+html {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
 body {
 	font-family: "Inter", sans-serif;
 	font-optical-sizing: auto;
 	font-weight: 400;
 	font-style: normal;
 }
+
 #home-image {
 	height: 30rem;
 }
@@ -21,11 +31,19 @@ body {
 .nav-tabs {
 	border: none !important;
 }
-
-footer a.nav-link {
+.custom-footer {
+	position: fixed !important;
+	left: 0 !important;
+	bottom: 0 !important;
+	width: 100% !important;
+	z-index: 9999 !important;
+	overflow-x: auto;
+	background-color: red;
+}
+.custom-footer a.nav-link {
 	color: white !important;
 }
-footer a.active {
+.custom-footer a.active {
 	background-color: transparent !important;
 	border: none !important;
 	color: black !important;
@@ -35,7 +53,6 @@ footer a.active {
 	position: fixed !important;
 	left: 0 !important;
 	top: 0 !important;
-	height: 100vh !important;
 	overflow-y: auto !important;
 	width: 250px; /* Adjust as needed */
 }
@@ -50,16 +67,16 @@ footer a.active {
 	list-style-type: none;
 	max-height: 200px;
 	overflow-y: auto;
-  }
-  
-  .autosuggest-list li {
+}
+
+.autosuggest-list li {
 	padding: 10px;
 	cursor: pointer;
-  }
-  
-  .autosuggest-list li:hover {
+}
+
+.autosuggest-list li:hover {
 	background-color: #f0f0f0;
-  }
+}
 @keyframes gradient-animation {
 	0% {
 		background-position: 0% 50%;
