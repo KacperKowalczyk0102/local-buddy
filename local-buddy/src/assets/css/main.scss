@@ -71,7 +71,25 @@ footer a.active {
 		background-position: 0% 50%;
 	}
 }
+.custom-input-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
 
+.custom-input-group .btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 40px; /* Szerokość przycisku */
+    background-color: white; /* Białe tło */
+    border: 1px solid #ced4da; /* Ramka */
+    border-radius: 0 4px 4px 0; /* Zaokrąglenie prawego rogu */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
 //small devices
 
 @media (max-width: 767px) {
