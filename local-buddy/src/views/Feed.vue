@@ -103,92 +103,16 @@
 				</div>
 
 				<!-- MAIN CONTENT -->
+
+				<!-- test -->
 				<div class="col-md-6">
-					<!-- test -->
-					<div class="col-md-6">
-						<div class="card" v-for="post in posts" :key="post.id">
-							{{ post.description }} - {{ post.location }} {{ post.createdAt }} - {{ post.rating }}
-						</div>
+					<div class="card my-5" style="width: 100%" v-for="post in posts" :key="post.id">
+						<span>{{ post.location }}</span>
+						<img v-if="post.imageUrl" :src="post.imageUrl" alt="Post Image" style="max-width: 100%; height: auto" />
+						<span>{{ post.rating }}</span>
+						<span>{{ post.createdAt }}</span>
+						<span>{{ post.description }}</span>
 					</div>
-					Feed TEST TEST TESTTEST TESTTEST TEST TEST TEST Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi gravida nisi at est maximus,
-					sed cursus nulla lobortis. Donec a vulputate dolor. Vivamus tortor massa, semper quis congue varius, efficitur sed ex. Mauris aliquet
-					lacinia arcu, et tincidunt nisi malesuada vitae. Etiam dapibus erat sapien. Suspendisse vel vehicula tortor, faucibus laoreet quam. Quisque
-					cursus, mauris eu malesuada tristique, arcu urna tincidunt sapien, in porttitor magna urna at magna. Class aptent taciti sociosqu ad litora
-					torquent per conubia nostra, per inceptos himenaeos. Duis ultrices finibus luctus. Nunc a sollicitudin ligula. Etiam auctor porta dui, eget
-					fringilla magna maximus vel. Curabitur vel mi sit amet ipsum luctus bibendum. Quisque sed enim ut metus cursus pulvinar tempus gravida erat.
-					Nullam porttitor, urna quis vehicula fringilla, urna velit pulvinar ipsum, nec ultricies eros nunc vel odio. Sed lobortis lorem eu leo
-					semper vulputate. Donec sed metus ac ligula facilisis dignissim sit amet sit amet tellus. Fusce eleifend turpis ligula, nec hendrerit magna
-					placerat at. Aliquam finibus quis justo vel sodales. Curabitur nec arcu sit amet purus consectetur consectetur vitae ac est. Nunc egestas
-					aliquet varius. Integer molestie pellentesque laoreet. Nulla malesuada nisl sit amet neque semper, ultrices dapibus ante auctor. Cras vitae
-					suscipit sem. Vivamus non turpis luctus, sagittis nisl eu, luctus massa. Phasellus ornare elit et nulla pellentesque, nec auctor nunc
-					congue. Ut interdum vehicula aliquet. Donec sollicitudin mi sed vulputate interdum. Nulla ut blandit diam. Vivamus scelerisque in turpis at
-					pretium. Fusce at viverra diam. Sed orci metus, facilisis et mi in, ultricies scelerisque massa. Vestibulum eu fringilla ante, quis
-					pellentesque nulla. Maecenas a arcu accumsan, finibus mauris quis, facilisis dolor. Curabitur suscipit egestas elit tincidunt elementum.
-					Donec felis magna, dignissim eu sodales quis, cursus auctor enim. Aenean ut tristique arcu. Fusce in nisl consequat, lobortis turpis vel,
-					ornare libero. Maecenas iaculis quam neque, ut lobortis diam tristique in. Nulla facilisi. Suspendisse varius sapien at sodales ultrices.
-					Phasellus suscipit feugiat nunc id lacinia. Maecenas finibus nibh nisi, tempor blandit tellus pulvinar in. Donec at nunc id odio efficitur
-					finibus nec at est. Maecenas vitae turpis tincidunt, luctus tortor id, tincidunt ipsum. Aliquam sapien purus, consequat nec interdum
-					facilisis, euismod blandit augue. Proin porta non sapien at porttitor. Donec ac mi ut purus feugiat varius et gravida dui. Nam augue nulla,
-					efficitur a lacus vel, rhoncus congue tortor. Donec commodo eleifend enim, ac lacinia diam tempus congue. Lorem ipsum dolor sit amet,
-					consectetur adipiscing elit. Morbi gravida nisi at est maximus, sed cursus nulla lobortis. Donec a vulputate dolor. Vivamus tortor massa,
-					semper quis congue varius, efficitur sed ex. Mauris aliquet lacinia arcu, et tincidunt nisi malesuada vitae. Etiam dapibus erat sapien.
-					Suspendisse vel vehicula tortor, faucibus laoreet quam. Quisque cursus, mauris eu malesuada tristique, arcu urna tincidunt sapien, in
-					porttitor magna urna at magna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis ultrices
-					finibus luctus. Nunc a sollicitudin ligula. Etiam auctor porta dui, eget fringilla magna maximus vel. Curabitur vel mi sit amet ipsum luctus
-					bibendum. Quisque sed enim ut metus cursus pulvinar tempus gravida erat. Nullam porttitor, urna quis vehicula fringilla, urna velit pulvinar
-					ipsum, nec ultricies eros nunc vel odio. Sed lobortis lorem eu leo semper vulputate. Donec sed metus ac ligula facilisis dignissim sit amet
-					sit amet tellus. Fusce eleifend turpis ligula, nec hendrerit magna placerat at. Aliquam finibus quis justo vel sodales. Curabitur nec arcu
-					sit amet purus consectetur consectetur vitae ac est. Nunc egestas aliquet varius. Integer molestie pellentesque laoreet. Nulla malesuada
-					nisl sit amet neque semper, ultrices dapibus ante auctor. Cras vitae suscipit sem. Vivamus non turpis luctus, sagittis nisl eu, luctus
-					massa. Phasellus ornare elit et nulla pellentesque, nec auctor nunc congue. Ut interdum vehicula aliquet. Donec sollicitudin mi sed
-					vulputate interdum. Nulla ut blandit diam. Vivamus scelerisque in turpis at pretium. Fusce at viverra diam. Sed orci metus, facilisis et mi
-					in, ultricies scelerisque massa. Vestibulum eu fringilla ante, quis pellentesque nulla. Maecenas a arcu accumsan, finibus mauris quis,
-					facilisis dolor. Curabitur suscipit egestas elit tincidunt elementum. Donec felis magna, dignissim eu sodales quis, cursus auctor enim.
-					Aenean ut tristique arcu. Fusce in nisl consequat, lobortis turpis vel, ornare libero. Maecenas iaculis quam neque, ut lobortis diam
-					tristique in. Nulla facilisi. Suspendisse varius sapien at sodales ultrices. Phasellus suscipit feugiat nunc id lacinia. Maecenas finibus
-					nibh nisi, tempor blandit tellus pulvinar in. Donec at nunc id odio efficitur finibus nec at est. Maecenas vitae turpis tincidunt, luctus
-					tortor id, tincidunt ipsum. Aliquam sapien purus, consequat nec interdum facilisis, euismod blandit augue. Proin porta non sapien at
-					porttitor. Donec ac mi ut purus feugiat varius et gravida dui. Nam augue nulla, efficitur a lacus vel, rhoncus congue tortor. Donec commodo
-					eleifend enim, ac lacinia diam tempus congue.Feed TEST TEST TESTTEST TESTTEST TEST TEST TEST Lorem ipsum dolor sit amet, consectetur
-					adipiscing elit. Morbi gravida nisi at est maximus, sed cursus nulla lobortis. Donec a vulputate dolor. Vivamus tortor massa, semper quis
-					congue varius, efficitur sed ex. Mauris aliquet lacinia arcu, et tincidunt nisi malesuada vitae. Etiam dapibus erat sapien. Suspendisse vel
-					vehicula tortor, faucibus laoreet quam. Quisque cursus, mauris eu malesuada tristique, arcu urna tincidunt sapien, in porttitor magna urna
-					at magna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis ultrices finibus luctus. Nunc a
-					sollicitudin ligula. Etiam auctor porta dui, eget fringilla magna maximus vel. Curabitur vel mi sit amet ipsum luctus bibendum. Quisque sed
-					enim ut metus cursus pulvinar tempus gravida erat. Nullam porttitor, urna quis vehicula fringilla, urna velit pulvinar ipsum, nec ultricies
-					eros nunc vel odio. Sed lobortis lorem eu leo semper vulputate. Donec sed metus ac ligula facilisis dignissim sit amet sit amet tellus.
-					Fusce eleifend turpis ligula, nec hendrerit magna placerat at. Aliquam finibus quis justo vel sodales. Curabitur nec arcu sit amet purus
-					consectetur consectetur vitae ac est. Nunc egestas aliquet varius. Integer molestie pellentesque laoreet. Nulla malesuada nisl sit amet
-					neque semper, ultrices dapibus ante auctor. Cras vitae suscipit sem. Vivamus non turpis luctus, sagittis nisl eu, luctus massa. Phasellus
-					ornare elit et nulla pellentesque, nec auctor nunc congue. Ut interdum vehicula aliquet. Donec sollicitudin mi sed vulputate interdum. Nulla
-					ut blandit diam. Vivamus scelerisque in turpis at pretium. Fusce at viverra diam. Sed orci metus, facilisis et mi in, ultricies scelerisque
-					massa. Vestibulum eu fringilla ante, quis pellentesque nulla. Maecenas a arcu accumsan, finibus mauris quis, facilisis dolor. Curabitur
-					suscipit egestas elit tincidunt elementum. Donec felis magna, dignissim eu sodales quis, cursus auctor enim. Aenean ut tristique arcu. Fusce
-					in nisl consequat, lobortis turpis vel, ornare libero. Maecenas iaculis quam neque, ut lobortis diam tristique in. Nulla facilisi.
-					Suspendisse varius sapien at sodales ultrices. Phasellus suscipit feugiat nunc id lacinia. Maecenas finibus nibh nisi, tempor blandit tellus
-					pulvinar in. Donec at nunc id odio efficitur finibus nec at est. Maecenas vitae turpis tincidunt, luctus tortor id, tincidunt ipsum. Aliquam
-					sapien purus, consequat nec interdum facilisis, euismod blandit augue. Proin porta non sapien at porttitor. Donec ac mi ut purus feugiat
-					varius et gravida dui. Nam augue nulla, efficitur a lacus vel, rhoncus congue tortor. Donec commodo eleifend enim, ac lacinia diam tempus
-					congue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi gravida nisi at est maximus, sed cursus nulla lobortis. Donec a
-					vulputate dolor. Vivamus tortor massa, semper quis congue varius, efficitur sed ex. Mauris aliquet lacinia arcu, et tincidunt nisi malesuada
-					vitae. Etiam dapibus erat sapien. Suspendisse vel vehicula tortor, faucibus laoreet quam. Quisque cursus, mauris eu malesuada tristique,
-					arcu urna tincidunt sapien, in porttitor magna urna at magna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-					inceptos himenaeos. Duis ultrices finibus luctus. Nunc a sollicitudin ligula. Etiam auctor porta dui, eget fringilla magna maximus vel.
-					Curabitur vel mi sit amet ipsum luctus bibendum. Quisque sed enim ut metus cursus pulvinar tempus gravida erat. Nullam porttitor, urna quis
-					vehicula fringilla, urna velit pulvinar ipsum, nec ultricies eros nunc vel odio. Sed lobortis lorem eu leo semper vulputate. Donec sed metus
-					ac ligula facilisis dignissim sit amet sit amet tellus. Fusce eleifend turpis ligula, nec hendrerit magna placerat at. Aliquam finibus quis
-					justo vel sodales. Curabitur nec arcu sit amet purus consectetur consectetur vitae ac est. Nunc egestas aliquet varius. Integer molestie
-					pellentesque laoreet. Nulla malesuada nisl sit amet neque semper, ultrices dapibus ante auctor. Cras vitae suscipit sem. Vivamus non turpis
-					luctus, sagittis nisl eu, luctus massa. Phasellus ornare elit et nulla pellentesque, nec auctor nunc congue. Ut interdum vehicula aliquet.
-					Donec sollicitudin mi sed vulputate interdum. Nulla ut blandit diam. Vivamus scelerisque in turpis at pretium. Fusce at viverra diam. Sed
-					orci metus, facilisis et mi in, ultricies scelerisque massa. Vestibulum eu fringilla ante, quis pellentesque nulla. Maecenas a arcu
-					accumsan, finibus mauris quis, facilisis dolor. Curabitur suscipit egestas elit tincidunt elementum. Donec felis magna, dignissim eu sodales
-					quis, cursus auctor enim. Aenean ut tristique arcu. Fusce in nisl consequat, lobortis turpis vel, ornare libero. Maecenas iaculis quam
-					neque, ut lobortis diam tristique in. Nulla facilisi. Suspendisse varius sapien at sodales ultrices. Phasellus suscipit feugiat nunc id
-					lacinia. Maecenas finibus nibh nisi, tempor blandit tellus pulvinar in. Donec at nunc id odio efficitur finibus nec at est. Maecenas vitae
-					turpis tincidunt, luctus tortor id, tincidunt ipsum. Aliquam sapien purus, consequat nec interdum facilisis, euismod blandit augue. Proin
-					porta non sapien at porttitor. Donec ac mi ut purus feugiat varius et gravida dui. Nam augue nulla, efficitur a lacus vel, rhoncus congue
-					tortor. Donec commodo eleifend enim, ac lacinia diam tempus congue.
 				</div>
 			</div>
 		</div>
@@ -211,11 +135,6 @@ export default {
 		window.addEventListener("resize", () => {
 			isMobile.value = window.innerWidth <= 768;
 		});
-
-		/* onMounted(() => {
-			const db = this.$db;
-			isMobile.value = window.innerWidth <= 768;
-		}); */
 		onMounted(async () => {
 			try {
 				isMobile.value = window.innerWidth <= 768;
