@@ -39,6 +39,7 @@ const handleSignOut = () => {
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
 #app {
 	/* font-family: Avenir, Helvetica, Arial, sans-serif; */
 	-webkit-font-smoothing: antialiased;
