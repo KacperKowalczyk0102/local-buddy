@@ -1,17 +1,20 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, provide } from "vue";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import router from "./router";
 const isLoggedIn = ref(false);
 
 let auth;
+let userEmail = ref(null);
 onMounted(() => {
 	auth = getAuth();
 	onAuthStateChanged(auth, (user) => {
 		if (user) {
 			isLoggedIn.value = true;
+			userEmail.value = user.email;
 		} else {
 			isLoggedIn.value = false;
+			userEmail.value = null;
 		}
 	});
 });
@@ -21,6 +24,8 @@ const handleSignOut = () => {
 		router.push("/");
 	});
 };
+provide("handleSignOut", handleSignOut);
+provide("userEmail", userEmail);
 </script>
 
 <template>

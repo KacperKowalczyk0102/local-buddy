@@ -66,7 +66,42 @@ body {
 	top: 0 !important;
 	overflow-y: auto !important;
 	height: 100vh;
-	width: 250px; /* Adjust as needed */
+	width: 250px;
+}
+.email-link {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 200px;
+}
+.sidebar a {
+	color: white !important;
+}
+.sidebar a.active {
+	background-color: $tertiary !important;
+}
+.dropdown-menu a:hover {
+	color: black !important;
+	background-color: #d16e88;
+}
+.modal-menu {
+	position: fixed;
+	z-index: 99999;
+	background-color: $tertiary;
+	color: white !important;
+	min-width: 300px;
+}
+.modal-menu p.linking:hover {
+	color: $primary;
+}
+.modal-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	z-index: 999999999999;
+	background-color: rgba(0, 0, 0, 0.5);
 }
 .autosuggest-list {
 	position: absolute;
