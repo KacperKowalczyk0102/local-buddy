@@ -56,7 +56,7 @@ import smallImage from "../assets/images/logov2text.svg";
 const email = ref("");
 const password = ref("");
 const router = useRouter();
-
+const auth = getAuth();
 let imgSrc = ref(largeImage);
 let width = ref(window.innerWidth);
 

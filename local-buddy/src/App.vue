@@ -1,17 +1,20 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, provide } from "vue";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import router from "./router";
 const isLoggedIn = ref(false);
 
 let auth;
+let userEmail = ref(null);
 onMounted(() => {
 	auth = getAuth();
 	onAuthStateChanged(auth, (user) => {
 		if (user) {
 			isLoggedIn.value = true;
+			userEmail.value = user.email;
 		} else {
 			isLoggedIn.value = false;
+			userEmail.value = null;
 		}
 	});
 });
@@ -21,6 +24,8 @@ const handleSignOut = () => {
 		router.push("/");
 	});
 };
+provide("handleSignOut", handleSignOut);
+provide("userEmail", userEmail);
 </script>
 
 <template>
@@ -39,6 +44,7 @@ const handleSignOut = () => {
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
 #app {
 	/* font-family: Avenir, Helvetica, Arial, sans-serif; */
 	-webkit-font-smoothing: antialiased;
