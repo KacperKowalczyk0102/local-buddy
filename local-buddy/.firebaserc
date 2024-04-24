@@ -1,8 +1,8 @@
 {
-  "projects": {
-    "default": "localbuddy-6a06e",
-    "run": "local-buddy-app"
-  },
-  "targets": {},
-  "etags": {}
+	"projects": {
+		"default": "localbuddy-6a06e",
+		"run": "local-buddy-app"
+	},
+	"targets": {},
+	"tags": {}
 }
