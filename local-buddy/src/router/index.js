@@ -13,6 +13,10 @@ const router = createRouter({
                 requiresAuth: true} },
         {path: '/post', name: 'post', component: () => import('../views/Post.vue'), meta: {
           requiresAuth: true} },
+        {path: '/rating', name: 'rating', component: () => import('../views/Rating.vue'), meta: {
+        }},
+        { path: '/bug-report', name: 'bug-report', component: () => import('../views/BugReport.vue') },
+        
 
 
     ]
