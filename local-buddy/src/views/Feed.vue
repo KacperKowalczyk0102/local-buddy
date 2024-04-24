@@ -139,6 +139,7 @@
 				<!-- test -->
 				<div class="col-md-6">
 					<div class="card my-5" style="width: 100%" v-for="post in posts" :key="post.id">
+						<span>{{ post.userEmail }}</span>
 						<span>{{ post.location }}</span>
 						<img v-if="post.imageUrl" :src="post.imageUrl" alt="Post Image" style="max-width: 100%; height: auto" />
 						<span>{{ post.rating }}</span>

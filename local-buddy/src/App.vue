@@ -36,6 +36,8 @@ provide("userEmail", userEmail);
 			<router-link to="/register">Register</router-link>
 			<router-link to="/signin">Sign In</router-link>
 			<router-link to="/post">Post</router-link>
+			<router-link to="/rating">Rating</router-link>
+			<router-link to="/bug-report">Bug Report</router-link>
 			<button @click="handleSignOut" v-if="isLoggedIn">Sign Out</button>
 		</nav>
 		<router-view />

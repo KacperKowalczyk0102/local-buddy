@@ -173,7 +173,7 @@
 
 <script>
 import { useRouter } from "vue-router";
-import { ref, getCurrentInstance, onMounted } from "vue";
+import { ref, getCurrentInstance, onMounted, inject } from "vue";
 import { collection, addDoc } from "firebase/firestore";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 import { firebaseConfig } from "@/firebaseConfig.js";
@@ -194,6 +194,7 @@ export default {
 		const location = ref("");
 		const region = ref("");
 		const suggestions = ref([]);
+		const userEmail = inject("userEmail");
 
 		onMounted(async () => {
 			try {
@@ -268,6 +269,7 @@ export default {
 					createdAt: new Date(),
 					region: region.value,
 					imageUrl: url,
+					userEmail: userEmail.value,
 				});
 				image.value = null;
 				description.value = "";
@@ -293,6 +295,7 @@ export default {
 			/* searchSuggestions,
 			selectSuggestion, */
 			suggestions,
+			userEmail,
 		};
 	},
 };
