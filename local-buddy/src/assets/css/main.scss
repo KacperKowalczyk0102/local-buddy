@@ -158,3 +158,11 @@ body {
 		height: 18rem;
 	}
 }
+@media (max-width: 870px) {
+	.sidebar {
+		width: 180px;
+	}
+	.sidebar img {
+		width: 110px;
+	}
+}
