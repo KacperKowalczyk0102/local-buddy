@@ -143,14 +143,38 @@
 					<img src="../assets/images/logov2ALL.svg" />
 				</div>
 				<div class="col-md-6 mt-5 py-5">
+					<!-- CARD / POST -->
 					<div class="card my-5" style="width: 100%" v-for="post in posts" :key="post.id">
-						<span>{{ post.userEmail }}</span>
-						<span>{{ post.location }}</span>
+						<div class="card-header text-left">
+							<h5 class="card-title">
+								<svg xmlns="http://www.w3.org/2000/svg" height="25" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+									<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+									<path
+										fill-rule="evenodd"
+										d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
+									/>
+								</svg>
+								{{ post.userEmail.split("@")[0] }}
+							</h5>
+							<span></span><small>Adres: {{ post.location }}</small
+							><br /><small>{{ post.region.toUpperCase() }}</small>
+						</div>
+
 						<img v-if="post.imageUrl" :src="post.imageUrl" alt="Post Image" style="max-width: 100%; height: auto" />
-						<span>{{ post.rating }}</span>
-						<span>{{ post.createdAt }}</span>
-						<span>{{ post.description }}</span>
+						<div class="card-body">
+							Ocena:{{ stars(post.rating) }}<br />
+							<small>{{ post.createdAt ? formatDate(post.createdAt) : "" }}</small
+							><br />
+							<!-- Opis posta -->
+							<p v-if="post.showFullDescription || post.description.length <= 100">{{ post.description }}</p>
+							<p v-else>{{ post.description.substring(0, 100) }}...</p>
+							<!-- Przycisk Show More/Less -->
+							<button class="btn btn-sm btn-post" v-if="post.description.length > 100" @click="post.showFullDescription = !post.showFullDescription">
+								{{ post.showFullDescription ? "Pokaż mniej" : "Cały opis" }}
+							</button>
+						</div>
 					</div>
+					<!-- END -->
 				</div>
 			</div>
 		</div>
@@ -159,9 +183,14 @@
 
 <script>
 import { useRouter } from "vue-router";
-import { ref, onMounted, getCurrentInstance, inject, computed } from "vue";
+import { ref, onMounted, getCurrentInstance, inject, computed, reactive } from "vue";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { format } from "date-fns";
+
 export default {
+	props: {
+		post: Object,
+	},
 	setup() {
 		const router = useRouter();
 		const isMobile = ref(window.innerWidth <= 768);
@@ -169,7 +198,7 @@ export default {
 		const db = proxy.$db;
 
 		const isModalOpen = ref(false);
-
+		const showFullDescription = ref(false);
 		// Lista postów
 		const posts = ref([]);
 
@@ -200,6 +229,22 @@ export default {
 		const closeModal = () => {
 			isModalOpen.value = false;
 		};
+
+		const formatDate = (timestamp) => {
+			if (!timestamp) return "";
+			try {
+				const date = timestamp.toDate();
+				return format(date, "dd-MM-yyyy : HH:mm");
+			} catch (e) {
+				console.error(e);
+				return "";
+			}
+		};
+
+		const toggleDescription = () => {
+			showFullDescription.value = !showFullDescription.value;
+		};
+
 		const handleSignOut = inject("handleSignOut");
 		const goToBugReport = inject("goToBugReport");
 		const goToRating = inject("goToRating");
@@ -207,7 +252,27 @@ export default {
 		const userPrefix = computed(() => {
 			return userEmail.value ? userEmail.value.split("@")[0] : "";
 		});
-		return { goToFeed, goToPost, isMobile, posts, handleSignOut, userPrefix, openModal, closeModal, isModalOpen, goToBugReport, goToRating };
+
+		const stars = (rating) => {
+			return "⭐".repeat(rating);
+		};
+		return {
+			goToFeed,
+			goToPost,
+			isMobile,
+			posts,
+			handleSignOut,
+			userPrefix,
+			openModal,
+			closeModal,
+			isModalOpen,
+			goToBugReport,
+			goToRating,
+			formatDate,
+			showFullDescription,
+			toggleDescription,
+			stars,
+		};
 	},
 };
 </script>
