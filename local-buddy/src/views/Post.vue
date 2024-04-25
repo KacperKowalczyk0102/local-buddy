@@ -115,10 +115,26 @@
 					<div class="post-form-container">
 						<h2>Dodaj nowy post</h2>
 						<form @submit.prevent="submitPost" class="post-form">
-							<div class="form-group">
-								<label for="image">Zdjęcie:</label>
-								<input type="file" id="image" @change="handleImageChange" accept="image/*" />
+							<!-- dodane żeby robić zdjęcia -->
+							<div class="form-group d-flex flex-column align-items-center">
+								<div class="d-flex align-items-center">
+									<label for="image">Zdjęcie:</label>
+									<input type="file" id="image" @change="handleImageChange" accept="image/*" style="display: none" />
+								</div>
+								<div class="photo-buttons">
+									<!-- Przycisk dla wyboru zdjęcia z plików -->
+									<label for="file-upload" class="custom-file-label photo-button">Wybierz Zdjęcie</label>
+									<input id="file-upload" class="file-input" type="file" accept="image/*" @change="handleImageChange" />
+
+									<!-- Przycisk dla zrobienia nowego zdjęcia -->
+									<div class="photo-button" @click="takePhoto">Zrób Zdjęcie</div>
+								</div>
+								<!-- Podgląd wybranego zdjęcia -->
+								<div v-if="imagePreview" class="mt-2">
+									<img :src="imagePreview" alt="Podgląd Zdjęcia" style="max-width: 100%; max-height: 200px" />
+								</div>
 							</div>
+							<!-- dodane żeby robić zdjęcia -->
 							<div class="form-group">
 								<label for="description">Opis:</label>
 								<textarea id="description" v-model="description"></textarea>
@@ -156,13 +172,24 @@
 							</div>
 							<div class="form-group">
 								<label for="location">Lokalizacja:</label>
-								<input type="text" id="location" v-model="location" />
-								<!--  to było w tym ninpucie@input="searchSuggestions" -->
+								<div class="input-group custom-input-group">
+									<input type="text" id="location" v-model="location" @input="searchSuggestions" class="form-control" />
+									<div class="input-group-append">
+										<button class="btn btn-custom" type="button" @click="getCurrentLocation">
+											<svg xmlns="http://www.w3.org/2000/svg" class="bi bi-geo-alt" viewBox="0 0 16 16">
+												<path
+													d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"
+												/>
+												<path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+											</svg>
+										</button>
+									</div>
+								</div>
 							</div>
 							<ul class="autosuggest-list" v-if="suggestions.length > 0">
 								<li v-for="suggest in suggestions" :key="suggest.place_id" @click="selectSuggestion(suggest)">{{ suggest.description }}</li>
 							</ul>
-							<button type="submit">Dodaj post</button>
+							<button @Click="vibrate()" type="submit">Dodaj post</button>
 						</form>
 					</div>
 				</div>
@@ -177,6 +204,7 @@ import { ref, getCurrentInstance, onMounted, inject } from "vue";
 import { collection, addDoc } from "firebase/firestore";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 import { firebaseConfig } from "@/firebaseConfig.js";
+//import { firebaseConfig } from '@/../public/firebaseConfig.js';
 
 export default {
 	setup() {
@@ -189,6 +217,7 @@ export default {
 		});
 
 		const image = ref(null);
+		const imagePreview = ref(null);
 		const description = ref("");
 		const rating = ref(0);
 		const location = ref("");
@@ -203,24 +232,52 @@ export default {
 				console.error("Błąd podczas pobierania danych:", error);
 			}
 			const script = document.createElement("script");
-			/* script.src = `https://maps.googleapis.com/maps/api/js?key=${firebaseConfig.googleKey}&libraries=places`; */
+			script.src = `https://maps.googleapis.com/maps/api/js?key=${firebaseConfig.googleKey}&libraries=places`;
 			script.async = true;
 			script.defer = true;
 			document.head.appendChild(script);
 
-			/* script.onload = () => {
+			script.onload = () => {
 				console.log("Google Maps API załadowany");
 				initGoogleMaps();
-			}; */
+			};
 		});
 
-		const handleImageChange = (event) => {
-			image.value = event.target.files[0];
+		const getCurrentLocation = () => {
+			if ("geolocation" in navigator) {
+				navigator.geolocation.getCurrentPosition(
+					(position) => {
+						const latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+						const geocoder = new google.maps.Geocoder();
+						geocoder.geocode({ location: latLng }, (results, status) => {
+							if (status === google.maps.GeocoderStatus.OK && results[0]) {
+								location.value = results[0].formatted_address;
+								// Aktualizuj sugestie, jeśli potrzeba
+								searchSuggestions();
+							} else {
+								console.error("Nie udało się znaleźć lokalizacji: ", status);
+							}
+						});
+					},
+					(error) => {
+						console.error("Błąd podczas uzyskiwania lokalizacji: ", error);
+					}
+				);
+			} else {
+				console.error("Twoja przeglądarka nie obsługuje Geolocation API");
+			}
 		};
-		const goToFeed = () => {
-			router.push("/feed");
+
+		const vibrate = () => {
+			if ("vibrate" in navigator) {
+				navigator.vibrate([100, 100, 100, 100, 100, 100, 500, 100, 500, 100, 500, 100, 100, 100, 100, 100, 100]);
+				console.log("poszło");
+			} else {
+				alert("Vibration not supported");
+			}
 		};
-		/* const searchSuggestions = () => {
+
+		const searchSuggestions = () => {
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(
 					(position) => {
@@ -229,7 +286,7 @@ export default {
 						const request = {
 							input: location.value,
 							location: latLng,
-							radius: 10000,
+							radius: 10000, // Maksymalny zasięg w metrach od obecnej pozycji
 						};
 						service.getPlacePredictions(request, (predictions, status) => {
 							if (status === google.maps.places.PlacesServiceStatus.OK && predictions) {
@@ -245,17 +302,90 @@ export default {
 				console.error("Twoja przeglądarka nie obsługuje Geolocation API");
 			}
 		};
+
 		const selectSuggestion = (suggestion) => {
 			location.value = suggestion.description;
 			suggestions.value = [];
 		};
+
 		const initGoogleMaps = () => {
 			if (typeof google !== "undefined" && google.maps) {
 				console.log("Inicjalizacja Google Maps");
+				// Tutaj możesz wywołać funkcje Google Maps, np. geocodowanie
 			} else {
 				console.error("Google Maps API nie załadowany poprawnie");
 			}
-		}; */
+		};
+
+		const selectImage = () => {
+			const input = document.getElementById("image");
+			input.click(); // Wywołujemy kliknięcie na input file, aby wybrać zdjęcie
+		};
+
+		const handleImageChange = (event) => {
+			const file = event.target.files[0];
+			if (file) {
+				image.value = file;
+				previewImage();
+			}
+		};
+
+		const previewImage = () => {
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				imagePreview.value = e.target.result;
+			};
+			reader.readAsDataURL(image.value);
+		};
+
+		const takePhoto = () => {
+			if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+				navigator.mediaDevices
+					.getUserMedia({ video: true })
+					.then((stream) => {
+						const video = document.createElement("video");
+						const mediaStream = new MediaStream(stream);
+						video.srcObject = mediaStream;
+						video.onloadedmetadata = () => {
+							video.play();
+							const canvas = document.createElement("canvas");
+							canvas.width = video.videoWidth;
+							canvas.height = video.videoHeight;
+							const context = canvas.getContext("2d");
+							context.drawImage(video, 0, 0, canvas.width, canvas.height);
+							const imageDataURL = canvas.toDataURL("image/jpeg");
+							const blob = dataURLToBlob(imageDataURL);
+							processImage(blob);
+							stream.getTracks().forEach((track) => track.stop());
+						};
+					})
+					.catch((error) => {
+						console.error("Błąd podczas dostępu do kamery:", error);
+					});
+			} else {
+				console.error("Twoja przeglądarka nie obsługuje funkcji kamery");
+			}
+		};
+
+		const processImage = (imageFile) => {
+			// Przekazujemy zdjęcie dalej w aplikacji
+			console.log("Przetworzone zdjęcie:", imageFile);
+		};
+
+		const dataURLToBlob = (dataURL) => {
+			const byteString = atob(dataURL.split(",")[1]);
+			const mimeString = dataURL.split(",")[0].split(":")[1].split(";")[0];
+			const arrayBuffer = new ArrayBuffer(byteString.length);
+			const uint8Array = new Uint8Array(arrayBuffer);
+			for (let i = 0; i < byteString.length; i++) {
+				uint8Array[i] = byteString.charCodeAt(i);
+			}
+			return new Blob([uint8Array], { type: mimeString });
+		};
+		const goToFeed = () => {
+			router.push("/feed");
+		};
+
 		const submitPost = async () => {
 			try {
 				const imageRef = storageRef(getStorage(), "images/" + image.value.name);
@@ -288,14 +418,24 @@ export default {
 			rating,
 			location,
 			region,
+			imagePreview,
+			selectImage,
 			handleImageChange,
+			previewImage,
+			takePhoto,
+			processImage,
+			dataURLToBlob,
 			submitPost,
 			isMobile,
 			goToFeed,
-			/* searchSuggestions,
-			selectSuggestion, */
+			suggestions,
+			getCurrentLocation,
+			vibrate,
+			searchSuggestions,
+			selectSuggestion,
 			suggestions,
 			userEmail,
+			initGoogleMaps,
 		};
 	},
 };
@@ -319,6 +459,57 @@ export default {
 .form-group {
 	margin-bottom: 20px;
 }
+
+.btn-custom {
+	background-color: white;
+	border: 1px solid #ced4da;
+	border-radius: 4px;
+	color: black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 12px 24px; /* Zwiększamy padding dla większego przycisku */
+	font-size: 18px; /* Zwiększamy rozmiar tekstu */
+	width: auto;
+	height: auto;
+}
+
+.btn-custom svg {
+	width: 1.2em; /* Zwiększamy rozmiar ikony */
+	height: 1.2em; /* Zwiększamy rozmiar ikony */
+	margin-right: 5px;
+	fill: black;
+	vertical-align: middle;
+}
+
+/* dodane żeby robić zdjęcia */
+/* Przyciski do wyboru/zrobienia zdjęcia */
+.photo-buttons {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+.photo-button {
+	padding: 10px 20px;
+	border-radius: 4px;
+	border: 1px solid #ced4da;
+	background-color: #f9f9f9;
+	color: #333;
+	cursor: pointer;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.photo-button:hover {
+	background-color: #e9ecef;
+	color: #333;
+}
+
+/* Ukrywanie inputa file */
+.file-input {
+	display: none;
+}
+/* dodane żeby robić zdjęcia */
 
 label {
 	font-weight: bold;
