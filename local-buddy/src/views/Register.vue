@@ -48,7 +48,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, watchEffect } from "vue";
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "vue-router";
 import largeImage from "../assets/images/register.png";
 import smallImage from "../assets/images/logov2text.svg";
@@ -68,6 +68,17 @@ const updateDimensions = () => {
 onMounted(() => {
 	window.addEventListener("resize", updateDimensions);
 	updateDimensions();
+	onAuthStateChanged(getAuth(), (user) => {
+		if (user) {
+			// Użytkownik jest zalogowany.
+			console.log("Użytkownik jest zalogowany");
+
+			router.push("/feed");
+		} else {
+			// Użytkownik jest wylogowany.
+			console.log("Użytkownik jest wylogowany");
+		}
+	});
 });
 
 onUnmounted(() => {

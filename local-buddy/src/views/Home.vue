@@ -14,16 +14,16 @@
 		<footer class="py-3 mt-4">
 			<ul class="nav justify-content-center pb-3 mb-3">
 				<li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-				<li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-				<li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Bug report</a></li>
+				<!-- <li class="nav-item"><a href="#" @click.prevent="goToRating" class="nav-link px-2 text-body-secondary">Oceń nas</a></li>
+				<li class="nav-item"><a href="#" @click.prevent="goToBugReport" class="nav-link px-2 text-body-secondary">Zgłoś problem</a></li> -->
 			</ul>
-			<p class="text-center text-body-secondary">© 2024 Company, Inc</p>
+			<p class="text-center text-body-secondary">2024 Company, Inc</p>
 		</footer>
 	</section>
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, inject } from "vue";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { useRouter } from "vue-router";
 
@@ -33,6 +33,8 @@ export default {
 	name: "Home",
 	setup() {
 		const router = useRouter();
+		/* const goToBugReport = inject("goToBugReport");
+		const goToRating = inject("goToRating"); */
 
 		onMounted(() => {
 			console.log("Home mounted");
@@ -56,7 +58,7 @@ export default {
 			router.push("/register");
 		};
 
-		return { goToLogin, goToRegister };
+		return { goToLogin, goToRegister /* goToBugReport, goToRating */ };
 	},
 };
 </script>

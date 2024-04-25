@@ -22,9 +22,10 @@
 			</p>
 			<hr />
 
-			<p href="#" class="linking">Report problem</p>
+			<p href="#" @click.prevent="goToBugReport" class="linking">Zgłoś problem</p>
+			<p href="#" @click.prevent="goToRating" class="linking">Oceń nas</p>
 
-			<p href="#" class="linking mb-5" @click.prevent="handleSignOut">Sign out</p>
+			<p href="#" class="linking mt-5" @click.prevent="handleSignOut">Wyloguj</p>
 			<hr />
 			<p href="#" class="linking" @click.prevent="closeModal"><strong>Close</strong></p>
 		</div>
@@ -93,7 +94,7 @@
 										d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0"
 									/>
 								</svg>
-								Add post
+								Dodaj post
 							</a>
 						</li>
 
@@ -123,13 +124,14 @@
 									d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"
 								/>
 							</svg>
-							<strong>More</strong>
+							<strong>Więcej</strong>
 						</a>
 						<ul class="dropdown-menu text-small shadow" style="background-color: #d16e88">
-							<li><a class="dropdown-item" href="#">Report problem</a></li>
+							<li><a class="dropdown-item" @click.prevent="goToBugReport" href="#">Zgłoś problem</a></li>
+							<li><a class="dropdown-item" @click.prevent="goToRating" href="#">Oceń nas</a></li>
 
 							<li><hr class="dropdown-divider" /></li>
-							<li><a class="dropdown-item" href="#" @click.prevent="handleSignOut">Sign out</a></li>
+							<li><a class="dropdown-item" href="#" @click.prevent="handleSignOut">Wyloguj</a></li>
 						</ul>
 					</div>
 				</div>
@@ -137,7 +139,10 @@
 				<!-- MAIN CONTENT -->
 
 				<!-- test -->
-				<div class="col-md-6">
+				<div v-if="isMobile" class="header" style="display: none">
+					<img src="../assets/images/logov2ALL.svg" />
+				</div>
+				<div class="col-md-6 mt-5 py-5">
 					<div class="card my-5" style="width: 100%" v-for="post in posts" :key="post.id">
 						<span>{{ post.userEmail }}</span>
 						<span>{{ post.location }}</span>
@@ -196,11 +201,13 @@ export default {
 			isModalOpen.value = false;
 		};
 		const handleSignOut = inject("handleSignOut");
+		const goToBugReport = inject("goToBugReport");
+		const goToRating = inject("goToRating");
 		const userEmail = inject("userEmail");
 		const userPrefix = computed(() => {
 			return userEmail.value ? userEmail.value.split("@")[0] : "";
 		});
-		return { goToFeed, goToPost, isMobile, posts, handleSignOut, userPrefix, openModal, closeModal, isModalOpen };
+		return { goToFeed, goToPost, isMobile, posts, handleSignOut, userPrefix, openModal, closeModal, isModalOpen, goToBugReport, goToRating };
 	},
 };
 </script>
