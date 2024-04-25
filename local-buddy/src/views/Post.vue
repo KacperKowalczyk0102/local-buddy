@@ -137,8 +137,8 @@
 				</div>
 
 				<!-- MAIN CONTENT -->
-				<div class="col-md-6">
-					<div class="post-form-container">
+				<div class="col-md-6 mb-5">
+					<div class="post-form-container mb-5">
 						<h2>Dodaj nowy post</h2>
 						<form @submit.prevent="submitPost" class="post-form">
 							<!-- dodane żeby robić zdjęcia -->
@@ -452,6 +452,7 @@ export default {
 			} catch (error) {
 				console.error("Błąd podczas dodawania postu: ", error);
 			}
+			goToFeed();
 		};
 
 		return {
