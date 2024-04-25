@@ -51,7 +51,7 @@ provide("goToFeed", goToFeed);
 
 <template>
 	<div id="app">
-		<nav>
+		<!-- <nav>
 			<router-link to="/">Home</router-link>
 			<router-link to="/feed">Feed</router-link>
 			<router-link to="/register">Register</router-link>
@@ -60,7 +60,7 @@ provide("goToFeed", goToFeed);
 			<router-link to="/rating">Rating</router-link>
 			<router-link to="/bug-report">Bug Report</router-link>
 			<button @click="handleSignOut" v-if="isLoggedIn">Sign Out</button>
-		</nav>
+		</nav> -->
 		<router-view />
 	</div>
 </template>
