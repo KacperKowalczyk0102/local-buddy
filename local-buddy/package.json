@@ -1,31 +1,32 @@
 {
-  "name": "local-buddy",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
-  },
-  "dependencies": {
-    "@popperjs/core": "^2.11.8",
-    "@vue/cli": "^5.0.8",
-    "@vue/cli-service-global": "^4.5.19",
-    "bootstrap": "^5.3.3",
-    "core-js": "^3.8.3",
-    "firebase": "^10.11.0",
-    "register-service-worker": "^1.7.2",
-    "vue": "^3.4.22",
-    "vue-router": "^4.0.13",
-    "vuex": "^4.0.2"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-pwa": "~5.0.0",
-    "@vue/cli-plugin-router": "~5.0.0",
-    "@vue/cli-plugin-vuex": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "sass": "^1.75.0",
-    "sass-loader": "^14.2.1",
-    "vue-template-compiler": "^2.6.14"
-  }
+	"name": "local-buddy",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"serve": "vue-cli-service serve",
+		"build": "vue-cli-service build",
+		"postbuild": "node remove-theme-color.js"
+	},
+	"dependencies": {
+		"@popperjs/core": "^2.11.8",
+		"@vue/cli": "^5.0.8",
+		"@vue/cli-service-global": "^4.5.19",
+		"bootstrap": "^5.3.3",
+		"core-js": "^3.8.3",
+		"firebase": "^10.11.0",
+		"register-service-worker": "^1.7.2",
+		"vue": "^3.4.22",
+		"vue-router": "^4.0.13",
+		"vuex": "^4.0.2"
+	},
+	"devDependencies": {
+		"@vue/cli-plugin-babel": "~5.0.0",
+		"@vue/cli-plugin-pwa": "~5.0.0",
+		"@vue/cli-plugin-router": "~5.0.0",
+		"@vue/cli-plugin-vuex": "~5.0.0",
+		"@vue/cli-service": "~5.0.0",
+		"sass": "^1.75.0",
+		"sass-loader": "^14.2.1",
+		"vue-template-compiler": "^2.6.14"
+	}
 }
