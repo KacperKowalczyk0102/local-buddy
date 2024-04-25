@@ -24,8 +24,29 @@ const handleSignOut = () => {
 		router.push("/");
 	});
 };
+const goToHome = () => {
+	router.push("/");
+};
+const goToBugReport = () => {
+	router.push("/bug-report");
+};
+const goToRating = () => {
+	router.push("/rating");
+};
+const goBack = () => {
+	router.go(-1);
+};
+const goToFeed = () => {
+	router.push("/feed");
+};
+
 provide("handleSignOut", handleSignOut);
 provide("userEmail", userEmail);
+provide("goToHome", goToHome);
+provide("goToBugReport", goToBugReport);
+provide("goToRating", goToRating);
+provide("goBack", goBack);
+provide("goToFeed", goToFeed);
 </script>
 
 <template>

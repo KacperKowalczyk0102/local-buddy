@@ -20,6 +20,7 @@
 							<h2>Zaloguj się</h2>
 							<p>Witaj ponownie, znajdź nowe miejsca</p>
 						</div>
+						<div v-if="errMsg" class="error-message">{{ errMsg }}</div>
 						<div class="input-group mb-3 mt-5">
 							<input type="email" class="form-control form-control-lg bg-light fs-6" placeholder="Email" v-model="email" />
 						</div>
@@ -55,7 +56,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, watchEffect } from "vue";
-import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "vue-router";
 import largeImage from "../assets/images/login.png";
 import smallImage from "../assets/images/logov2text.svg";
@@ -72,7 +73,7 @@ let isMobile = false;
 const logIn = () => {
 	signInWithEmailAndPassword(getAuth(), email.value, password.value)
 		.then((data) => {
-			console.log("Zarejestrowano pomyślnie");
+			console.log("Zalogowano pomyślnie");
 			console.log(auth.currentUser);
 			router.push("/feed");
 		})
@@ -80,7 +81,7 @@ const logIn = () => {
 			console.log(error.code);
 			switch (error.code) {
 				case "auth/invalid-email":
-					errMsg.value = "Niepoprawny email";
+					errMsg.value = "Niepoprawne dane logowania";
 					break;
 				case "auth/user-not-found":
 					errMsg.value = "Użytkownik nie istnieje";
@@ -88,8 +89,8 @@ const logIn = () => {
 				case "auth/wrong-password":
 					errMsg.value = "Niepoprawne hasło";
 					break;
-				default:
-					errMsg.value = "Email bądź hasło są niepoprawne";
+				case "auth/invalid-credential":
+					errMsg.value = "Niepoprawne dane logowania";
 					break;
 			}
 		});
@@ -114,6 +115,17 @@ const updateDimensions = () => {
 onMounted(() => {
 	window.addEventListener("resize", updateDimensions);
 	updateDimensions();
+	onAuthStateChanged(getAuth(), (user) => {
+		if (user) {
+			// Użytkownik jest zalogowany.
+			console.log("Użytkownik jest zalogowany");
+
+			router.push("/feed");
+		} else {
+			// Użytkownik jest wylogowany.
+			console.log("Użytkownik jest wylogowany");
+		}
+	});
 });
 
 onUnmounted(() => {
@@ -126,5 +138,8 @@ const goToRegister = () => {
 </script>
 
 <style>
-/* Opcjonalne style CSS */
+.error-message {
+	color: red;
+	font-size: 14px;
+}
 </style>
