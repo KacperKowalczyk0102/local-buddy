@@ -120,6 +120,12 @@ body {
 	z-index: 999999999999;
 	background-color: rgba(0, 0, 0, 0.5);
 }
+.post-page {
+	overflow: auto !important;
+
+	min-height: 100vh; /* żeby kolor był na całej stronie */
+}
+
 .autosuggest-list {
 	position: absolute;
 	z-index: 10;
