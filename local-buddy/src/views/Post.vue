@@ -137,7 +137,7 @@
 				</div>
 
 				<!-- MAIN CONTENT -->
-				<div class="col-md-6 mb-5">
+				<div class="col-md-6 mt-5 mb-5">
 					<div class="post-form-container mb-5">
 						<h2>Dodaj nowy post</h2>
 						<form @submit.prevent="submitPost" class="post-form">
@@ -215,7 +215,7 @@
 							<ul class="autosuggest-list" v-if="suggestions.length > 0">
 								<li v-for="suggest in suggestions" :key="suggest.place_id" @click="selectSuggestion(suggest)">{{ suggest.description }}</li>
 							</ul>
-							<button @Click="vibrate()" type="submit">Dodaj post</button>
+							<button type="submit">Dodaj post</button>
 						</form>
 					</div>
 				</div>
@@ -409,9 +409,17 @@ export default {
 			}
 		};
 
-		const processImage = (imageFile) => {
-			// Przekazujemy zdjęcie dalej w aplikacji
-			console.log("Przetworzone zdjęcie:", imageFile);
+		const processImage = (blob) => {
+			// get a timestamp
+			const timestamp = Date.now();
+			// create a File object from the blob
+			const file = new File([blob], `photo_${timestamp}.jpeg`, { type: "image/jpeg" });
+
+			// overwrite the image.value with the file
+			image.value = file;
+
+			// update the image preview
+			previewImage();
 		};
 
 		const dataURLToBlob = (dataURL) => {
@@ -449,6 +457,7 @@ export default {
 				location.value = "";
 				region.value = "";
 				console.log("Post został dodany pomyślnie!");
+				vibrate();
 				goToFeed();
 			} catch (error) {
 				console.error("Błąd podczas dodawania postu: ", error);
