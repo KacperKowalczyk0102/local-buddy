@@ -314,7 +314,7 @@ export default {
 
 		const vibrate = () => {
 			if ("vibrate" in navigator) {
-				navigator.vibrate([100, 100, 100, 100, 100, 100, 500, 100, 500, 100, 500, 100, 100, 100, 100, 100, 100]);
+				navigator.vibrate([500, 500, 500]);
 				console.log("poszło");
 			} else {
 				alert("Vibration not supported");
