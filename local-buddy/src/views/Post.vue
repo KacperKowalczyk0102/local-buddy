@@ -449,10 +449,11 @@ export default {
 				location.value = "";
 				region.value = "";
 				console.log("Post został dodany pomyślnie!");
+				goToFeed();
 			} catch (error) {
 				console.error("Błąd podczas dodawania postu: ", error);
+				alert("Błąd przy dodawaniu sprawdz konsole");
 			}
-			goToFeed();
 		};
 
 		return {
