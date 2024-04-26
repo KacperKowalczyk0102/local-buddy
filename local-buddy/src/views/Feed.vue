@@ -62,7 +62,7 @@
 			</li>
 		</ul>
 	</div>
-	<section class="bg-feed">
+	<section class="bg-feed" style="min-height: 100vh">
 		<div class="container">
 			<div class="row d-flex align-items-center justify-content-center">
 				<!-- SIDEBAR FOR DESKTOPS -->
@@ -137,11 +137,36 @@
 				</div>
 
 				<!-- MAIN CONTENT -->
-
-				<!-- test -->
-				<div v-if="isMobile" class="header" style="display: none">
-					<img src="../assets/images/logov2ALL.svg" />
-				</div>
+				<!-- TOP NAVBAR -->
+				<nav class="nav-feed sticky-top navbar px-0 mx-0 pb-3 col-md-7 col-sm-12">
+					<div class="container-fluid d-flex justify-content-center align-items-center">
+						<form>
+							<div class="form-group pt-3 feed-group">
+								<span>Wybierz region: </span>
+								<select v-model="selectedRegion" @change="onRegionChange">
+									<option value="">Wszystkie regiony</option>
+									<option value="dolnośląskie">Dolnośląskie</option>
+									<option value="kujawsko-pomorskie">Kujawsko-pomorskie</option>
+									<option value="lubelskie">Lubelskie</option>
+									<option value="lubuskie">Lubuskie</option>
+									<option value="łódzkie">Łódzkie</option>
+									<option value="małopolskie">Małopolskie</option>
+									<option value="mazowieckie">Mazowieckie</option>
+									<option value="opolskie">Opolskie</option>
+									<option value="podkarpackie">Podkarpackie</option>
+									<option value="podlaskie">Podlaskie</option>
+									<option value="pomorskie">Pomorskie</option>
+									<option value="śląskie">Śląskie</option>
+									<option value="świętokrzyskie">Świętokrzyskie</option>
+									<option value="warmińsko-mazurskie">Warmińsko-mazurskie</option>
+									<option value="wielkopolskie">Wielkopolskie</option>
+									<option value="zachodniopomorskie">Zachodniopomorskie</option>
+								</select>
+								<!-- <button @click.prevent="clearRegion">clear</button> -->
+							</div>
+						</form>
+					</div>
+				</nav>
 				<div class="col-md-6 mt-5 py-5">
 					<!-- CARD / POST -->
 					<div class="card my-5" style="width: 100%" v-for="post in posts" :key="post.id">
@@ -184,7 +209,7 @@
 <script>
 import { useRouter } from "vue-router";
 import { ref, onMounted, getCurrentInstance, inject, computed, reactive } from "vue";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs, query, where } from "firebase/firestore";
 import { format } from "date-fns";
 
 export default {
@@ -202,16 +227,44 @@ export default {
 		// Lista postów
 		const posts = ref([]);
 
+		const selectedRegion = ref(""); // Wybrany region
+
 		window.addEventListener("resize", () => {
 			isMobile.value = window.innerWidth <= 768;
 		});
-		onMounted(async () => {
+		const onRegionChange = async () => {
 			try {
-				isMobile.value = window.innerWidth <= 768;
-				const querySnapshot = await getDocs(collection(db, "posts"));
+				posts.value = []; // Wyczyść listę postów przed pobraniem nowych danych
+				let postCollection = collection(db, "posts");
+				console.log(selectedRegion.value);
+				// Jeżeli wybrano region, dodajemy warunek do zapytania
+				if (selectedRegion.value) {
+					postCollection = query(postCollection, where("region", "==", selectedRegion.value));
+				}
+
+				const querySnapshot = await getDocs(postCollection);
 				querySnapshot.forEach((doc) => {
 					posts.value.push({ id: doc.id, ...doc.data() });
 				});
+			} catch (error) {
+				console.error("Błąd podczas pobierania danych:", error);
+			}
+		};
+		onMounted(async () => {
+			try {
+				isMobile.value = window.innerWidth <= 768;
+				/* let postCollection = collection(db, "posts");
+
+				// Jeżeli wybrano region, dodajemy warunek do zapytania
+				if (selectedRegion.value) {
+					postCollection = query(postCollection, where("region", "==", selectedRegion.value));
+					console.log(selectedRegion.value);
+				}
+				const querySnapshot = await getDocs(postCollection);
+				querySnapshot.forEach((doc) => {
+					posts.value.push({ id: doc.id, ...doc.data() });
+				}); */
+				await onRegionChange();
 			} catch (error) {
 				console.error("Błąd podczas pobierania danych:", error);
 			}
@@ -256,6 +309,10 @@ export default {
 		const stars = (rating) => {
 			return "⭐".repeat(rating);
 		};
+		const clearRegion = () => {
+			selectedRegion.value = "";
+		};
+
 		return {
 			goToFeed,
 			goToPost,
@@ -272,6 +329,9 @@ export default {
 			showFullDescription,
 			toggleDescription,
 			stars,
+			selectedRegion,
+			onRegionChange,
+			clearRegion,
 		};
 	},
 };

@@ -84,6 +84,7 @@ body {
 	height: 100vh;
 	width: 250px;
 	overflow-x: hidden;
+	z-index: 99;
 }
 .email-link {
 	white-space: nowrap;
@@ -166,6 +167,36 @@ body {
 	justify-content: center;
 	align-items: center;
 }
+.nav-feed {
+	transition: 0.5s;
+	margin: 0;
+	padding: 0;
+
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+	color: white;
+	border-radius: 16px;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(50px);
+	border: 1px solid rgb(255, 255, 255, 0.3);
+	z-index: 999;
+	/* background-color: red; */
+}
+.feed-group select {
+	border-radius: 16px;
+	background-color: $primary;
+	border: 1px solid white;
+	color: white;
+	padding: 2px;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+	&:active,
+	&:focus,
+	&:hover {
+		outline: none;
+		box-shadow: none;
+	}
+}
+
 @keyframes gradient-animation {
 	0% {
 		background-position: 0% 50%;
