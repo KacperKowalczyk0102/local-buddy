@@ -1,6 +1,6 @@
 <template>
-	<section class="d-flex justify-content-center align-items-center bg-aniamtion" style="height: 100vh">
-		<div class="container d-flex justify-content-center">
+	<div class="post-page bg-feed">
+		<div class="container d-flex justify-content-center my-5">
 			<div class="row-md-6">
 				<form @submit.prevent="submitRating" class="bugReport-form py-4 px-5">
 					<!-- Pole do wpisania błędu -->
@@ -23,7 +23,7 @@
 				</form>
 			</div>
 		</div>
-	</section>
+	</div>
 </template>
 <script>
 import { collection, addDoc } from "firebase/firestore";
