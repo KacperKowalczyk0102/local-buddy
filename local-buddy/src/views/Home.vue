@@ -17,7 +17,13 @@
 				<!-- <li class="nav-item"><a href="#" @click.prevent="goToRating" class="nav-link px-2 text-body-secondary">Oceń nas</a></li>
 				<li class="nav-item"><a href="#" @click.prevent="goToBugReport" class="nav-link px-2 text-body-secondary">Zgłoś problem</a></li> -->
 			</ul>
-			<p class="text-center text-body-secondary">2024 Company, Inc</p>
+			<hr />
+			<p class="text-center text-body-secondary mx-5">
+				2024 <br />
+				This website is a project created for educational purposes as part of a university course. <br />
+				We do not claim ownership of any trademarks, logos, or intellectual property displayed on this site. <br />
+				All content used is for demonstration and learning purposes only.
+			</p>
 		</footer>
 	</section>
 </template>
