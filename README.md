@@ -4,7 +4,8 @@
 
 1. [Technologies](#technologies)
 2. [Screenshots](#screenshots)
-3. [Creators](#creators)
+3. [Diagram](#diagram)
+4. [Creators](#creators)
 
 ## Technologies
 
@@ -60,6 +61,12 @@
 ### Modal menu:
 
 ![screen1](/images/screen11.png)
+
+## Diagram
+
+### Use case diagram:
+
+![screen1](/images/LocalBuddyDiagram.drawio.png)
 
 ## Creators
 
