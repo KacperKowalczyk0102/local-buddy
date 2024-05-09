@@ -1,7 +1,8 @@
 module.exports = {
 	transpileDependencies: true,
 	pwa: {
-		appleMobileWebAppCapable: "no",
+		name: "LocalBuddy",
+		appleMobileWebAppCapable: "yes",
 		msTileColor: "",
 		appleMobileWebAppStatusBarStyle: "default",
 		/* manifestOptions: {
