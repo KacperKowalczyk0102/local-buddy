@@ -1,6 +1,18 @@
 {
-	"name": "My App",
-	"short_name": "App",
+	"name": "LocalBuddy",
+	"short_name": "LocalBuddy",
 	"start_url": ".",
-	"theme_color": ""
+	"theme_color": "",
+	"icons": [
+		{
+			"src": "/img/icons/logo.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "/img/icons/logo.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	]
 }

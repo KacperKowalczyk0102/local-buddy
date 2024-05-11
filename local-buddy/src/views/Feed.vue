@@ -144,6 +144,7 @@
 							<div class="form-group pt-3 feed-group">
 								<span>Wybierz region: </span>
 								<select v-model="selectedRegion" @change="onRegionChange">
+									<!-- przy każdej zmianie wywołuje funkcje onRegionChange -->
 									<option value="">Wszystkie regiony</option>
 									<option value="dolnośląskie">Dolnośląskie</option>
 									<option value="kujawsko-pomorskie">Kujawsko-pomorskie</option>
